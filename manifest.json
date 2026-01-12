@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Basic Chrome Extension",
-  "description": "Minimal working Chrome extension",
+  "name": "Text Blurer",
+  "description": "Blurs specific words on webpages",
   "version": "1.0",
   "action": {
     "default_popup": "popup.html"
@@ -9,7 +9,7 @@
   "permissions": [
     "storage"
   ],
-  "content_scriptts": [
+  "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"]
@@ -19,5 +19,3 @@
     "service_worker": "background.js"
   }
 }
-
- 
