@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>JARVIS</title>
+    <link rel="stylesheet" href="newtab.css">
+</head>
+
+<body class="jarvis">
+
+    <div class="hud">
+
+        <h1>JARVIS</h1>
+
+        <div class="ring radar" id="radar"></div>
+
+        <input id="command" placeholder="AWAITING COMMAND…" autofocus />
+
+        <!-- FLOATING WIDGETS -->
+        <div class="widget clock" draggable="true">
+            <span id="clockTime">--:--</span>
+            <small>LOCAL TIME</small>
+        </div>
+
+        <div class="widget system" draggable="true">
+            <span id="sysStatus">ONLINE</span>
+            <small>SYSTEM</small>
+        </div>
+
+        <div class="widget pulse" draggable="true"></div>
+
+    </div>
+
+
+    <audio id="bootSound" src="boot.mp3"></audio>
+
+    <script src="newtab.js"></script>
+</body>
+
+</html>

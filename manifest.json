@@ -1,20 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Text Blurer",
-  "description": "Blurs specific words on webpages",
+  "name": "JARVIS New Tab",
+  "description": "JARVIS-style futuristic new tab",
   "version": "1.0",
-  "action": {
-    "default_popup": "popup.html"
+
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
   },
-  "permissions": [
-    "storage"
-  ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
-    }
-  ],
+
+  "permissions": ["storage"],
   "background": {
     "service_worker": "background.js"
   }
