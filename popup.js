@@ -1,34 +1,30 @@
-// Restore saved state and wire up listeners
-document.addEventListener('DOMContentLoaded', () => {
-  const checkbox = document.getElementById('enabled');
-  const itemInput = document.getElementById('item');
+'use strict';
 
-  // Load values from chrome.storage
-  if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-    chrome.storage.local.get(['enabled', 'itemText'], (res) => {
-      if (res.enabled !== undefined) checkbox.checked = res.enabled;
-      if (res.itemText !== undefined) itemInput.value = res.itemText;
-    });
+console.log('Hello, world from popup!');
 
-    checkbox.addEventListener('change', () => {
-      chrome.storage.local.set({ enabled: checkbox.checked });
-    });
+function setBadgeText(enabled) {
+  const text = enabled ? 'ON' : 'OFF';
+  void chrome.action.setBadgeText({text: text});
+}
 
-    itemInput.addEventListener('input', () => {
-      chrome.storage.local.set({ itemText: itemInput.value });
-    });
-  } else {
-    // Fallback for non-extension environments
-    const storedEnabled = localStorage.getItem('enabled');
-    const storedText = localStorage.getItem('itemText');
-    if (storedEnabled !== null) checkbox.checked = storedEnabled === 'true';
-    if (storedText !== null) itemInput.value = storedText;
+// Handle the ON/OFF switch
+const checkbox = document.getElementById('enabled');
+chrome.storage.sync.get({keys: 'enabled'}, (data) => {
+  checkbox.checked = !!data.enabled;
+  void setBadgeText(data.enabled);
+});
 
-    checkbox.addEventListener('change', () => {
-      localStorage.setItem('enabled', checkbox.checked);
-    });
-    itemInput.addEventListener('input', () => {
-      localStorage.setItem('itemText', itemInput.value);
-    });
-  }
+checkbox.addEventListener('change', (event) => {
+  void chrome.storage.sync.set({'enabled': event.target.checked});
+  void setBadgeText(event.target.checked);
+});
+
+// Handle the input field
+const input = document.getElementById('item');
+chrome.storage.sync.get({keys: 'item'}, (data) => {
+  input.value = data.item || '';
+});
+
+input.addEventListener('change', (event) => {
+  void chrome.storage.sync.set({'item': event.target.value});
 });
