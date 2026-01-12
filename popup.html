@@ -1,18 +1,17 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>My popup</title>
-  <link rel="stylesheet" type="text/css" href="popup.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h3>Text Blurer</h3>
+
   <label class="switch">
-    <input id="enabled" type="checkbox">
-    <span class="slider round"></span>
+    <input type="checkbox" id="enabled">
+    <span class="slider"></span>
   </label>
 
-  <input class="secret" id="item" type="text" placeholder="Enter text">
+  <input type="text" id="item" class="secret" placeholder="Word to blur...">
 
   <script src="popup.js"></script>
 </body>
