@@ -1,37 +1,16 @@
-/* Custom Font Import */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-
-:root {
-    --glow-cyan: #00eaff;
-    --dark-bg: #010a10;
-    --accent-red: #ff3b3b;
-    --panel-bg: rgba(0, 20, 35, 0.8);
-}
-
 body.jarvis {
     margin: 0;
     height: 100vh;
-    background: 
-        radial-gradient(circle at center, #051d2e 0%, var(--dark-bg) 100%);
-    color: var(--glow-cyan);
-    font-family: "Orbitron", sans-serif;
+    background:
+        radial-gradient(circle at center, #04131f, #00080e),
+        repeating-linear-gradient(0deg,
+            rgba(0, 234, 255, 0.05) 0px,
+            rgba(0, 234, 255, 0.05) 1px,
+            transparent 1px,
+            transparent 6px);
+    color: #9ff3ff;
+    font-family: "Orbitron", monospace;
     overflow: hidden;
-    /* SCANLINE EFFECT */
-    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 234, 255, 0.05) 50%), 
-                      linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
-    background-size: 100% 3px, 3px 100%;
-}
-
-/* CRT Flicker Animation */
-body.jarvis::after {
-    content: " ";
-    position: fixed;
-    top: 0; left: 0; bottom: 0; right: 0;
-    background: rgba(18, 16, 16, 0.1);
-    opacity: 0;
-    z-index: 100;
-    pointer-events: none;
-    animation: flicker 0.15s infinite;
 }
 
 .hud {
@@ -41,102 +20,163 @@ body.jarvis::after {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    perspective: 1000px; /* Adds depth for 3D rotations */
 }
 
-/* SUPERCHARGED RADAR (Multi-layer) */
+.hud h1 {
+    font-size: 64px;
+    letter-spacing: 0.3em;
+    color: #00eaff;
+    text-shadow: 0 0 30px rgba(0, 234, 255, 0.9);
+    margin-bottom: 40px;
+}
+
+.hud input {
+    width: 520px;
+    padding: 16px;
+    background: rgba(0, 15, 25, 0.9);
+    border: 1px solid rgba(0, 234, 255, 0.6);
+    color: #9ff3ff;
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    outline: none;
+    box-shadow:
+        inset 0 0 18px rgba(0, 234, 255, 0.4),
+        0 0 25px rgba(0, 234, 255, 0.4);
+}
+
+/* ===============================
+   RADAR RING
+================================ */
 .radar {
     position: absolute;
-    width: 500px;
-    height: 500px;
+    width: 420px;
+    height: 420px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 234, 255, 0.1);
-    box-shadow: 0 0 50px rgba(0, 234, 255, 0.05);
+    border: 2px solid rgba(0, 234, 255, 0.25);
+    animation: rotate 20s linear infinite;
 }
 
-/* Inner Spinning Ring */
-.radar::after {
+.radar::before {
     content: "";
-    position: absolute;
-    inset: 20px;
-    border-radius: 50%;
-    border: 4px dotted var(--glow-cyan);
-    opacity: 0.3;
-    animation: rotate 10s linear infinite reverse;
-}
-
-.radar-sweep {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: conic-gradient(from 0deg, transparent 70%, rgba(0, 234, 255, 0.4) 100%);
-    animation: sweep 3s linear infinite;
+    background: conic-gradient(from 0deg,
+            transparent,
+            rgba(0, 234, 255, 0.3),
+            transparent);
+    animation: sweep 2.5s linear infinite;
 }
 
-/* HEADS UP DISPLAY TEXT */
-.hud h1 {
-    font-size: 5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.5em;
-    filter: drop-shadow(0 0 15px var(--glow-cyan));
-    animation: glitch 4s infinite;
-}
-
-/* INPUT BOX REDESIGN */
+/* ===============================
+   COMMAND INPUT GLOW
+================================ */
 #command {
-    width: 600px;
-    background: var(--panel-bg);
-    border: none;
-    border-left: 5px solid var(--glow-cyan);
-    border-right: 5px solid var(--glow-cyan);
-    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); /* Angular Sci-Fi Shape */
-    padding: 20px 40px;
-    color: white;
-    font-size: 1.5rem;
-    backdrop-filter: blur(10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-#command:focus {
-    width: 650px;
-    background: rgba(0, 234, 255, 0.15);
-    box-shadow: 0 0 40px rgba(0, 234, 255, 0.3);
-}
-
-/* WIDGETS - GLASSMORPHISM */
-.widget {
-    background: rgba(0, 40, 60, 0.4);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 234, 255, 0.3);
-    border-radius: 4px;
+    margin-top: 30px;
     transition: 0.3s;
 }
 
-.widget:hover {
-    border-color: var(--glow-cyan);
-    transform: translateY(-5px) scale(1.05);
+#command:focus {
+    box-shadow:
+        0 0 30px rgba(0, 234, 255, 0.8),
+        inset 0 0 20px rgba(0, 234, 255, 0.4);
 }
 
-/* KEYFRAMES */
-@keyframes flicker {
-    0% { opacity: 0.27861; }
-    5% { opacity: 0.34769; }
-    10% { opacity: 0.23604; }
-    100% { opacity: 0.1; }
+/* ===============================
+   STATS BAR
+================================ */
+.stats {
+    margin-top: 25px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    display: flex;
+    gap: 25px;
 }
 
-@keyframes glitch {
-    0% { transform: skew(0deg); }
-    2% { transform: skew(10deg); }
-    4% { transform: skew(-10deg); }
-    6% { transform: skew(0deg); }
+/* ===============================
+   ALERT MODE
+================================ */
+body.alert {
+    background:
+        radial-gradient(circle, #1a0000, #000000);
+}
+
+body.alert h1 {
+    color: #ff3b3b;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+}
+
+/* ===============================
+   ANIMATIONS
+================================ */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes sweep {
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* ===============================
+   FLOATING WIDGETS
+================================ */
+.widget {
+  position: absolute;
+  top: 70%;
+  left: 10%;
+  width: 120px;
+  padding: 10px;
+  background: rgba(0,20,30,0.85);
+  border: 1px solid rgba(0,234,255,0.6);
+  color: #9ff3ff;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  cursor: grab;
+  box-shadow:
+    inset 0 0 15px rgba(0,234,255,0.3),
+    0 0 20px rgba(0,234,255,0.3);
 }
 
-@keyframes rotate {
-    to { transform: rotate(360deg); }
+.widget small {
+  display: block;
+  font-size: 9px;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+.clock { top: 65%; left: 8%; }
+.system { top: 65%; left: 80%; }
+.pulse {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+/* ===============================
+   PULSE WIDGET
+================================ */
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px #00eaff; }
+  50% { box-shadow: 0 0 25px #00eaff; }
+  100% { box-shadow: 0 0 5px #00eaff; }
+}
+
+/* ===============================
+   GESTURE OVERLAY
+================================ */
+body.gesture-active {
+  cursor: crosshair;
 }
